@@ -8,11 +8,25 @@ class Migration(migrations.Migration):
     dependencies = [
         ('dentist_app', '0001_initial'),
     ]
-
+    """
     operations = [
         migrations.AlterField(
             model_name='appointment',
             name='appointment_time',
             field=models.TimeField(verbose_name='Appointment Time'),
+        ),
+    ]
+    """
+    operations = [
+        # Elimina el campo appointment_time
+        migrations.RemoveField(
+            model_name='appointment',
+            name='appointment_time',
+        ),
+        # Vuelve a agregar el campo appointment_time con el nuevo tipo
+        migrations.AddField(
+            model_name='appointment',
+            name='appointment_time',
+            field=models.TimeField(verbose_name='Appointment Time'),  # Aquí puedes agregar opciones adicionales si es necesario
         ),
     ]

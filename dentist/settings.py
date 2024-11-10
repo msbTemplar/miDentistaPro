@@ -13,12 +13,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
-#import dj_database_url 
+import dj_database_url 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DATABASE_URL = 'postgresql://postgres:dEABbCgyqqXRNQvxJZwlKeFtzcCjYFSg@postgres.railway.internal:5432/railway'
+#DATABASE_URL = 'postgresql://postgres:dEABbCgyqqXRNQvxJZwlKeFtzcCjYFSg@postgres.railway.internal:5432/railway'
+DATABASE_URL = 'postgresql://postgres:dEABbCgyqqXRNQvxJZwlKeFtzcCjYFSg@autorack.proxy.rlwy.net:43106/railway'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -88,6 +90,8 @@ DATABASES = {
     }
 }
 """
+
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -97,6 +101,11 @@ DATABASES = {
         'HOST': 'postgres.railway.internal',
         'PORT': '5432',
     }
+}
+"""
+
+DATABASES = {
+    'default': dj_database_url.config(default=DATABASE_URL)
 }
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
