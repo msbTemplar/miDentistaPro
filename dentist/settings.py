@@ -33,6 +33,13 @@ DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-0c64.up.railway.app']
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
 ALLOWED_HOSTS = ['web-production-0c64.up.railway.app', 'localhost', '127.0.0.1']
 
 #ALLOWED_HOSTS = ['*']
