@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About the doctor and his cool staff {% endblock %}
+{% block meta_description %} This is the web site of Dr EMD the greatest who ever good {% endblock %}
+{% block content %}
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-xl-12 col-lg-12 wow slideInUp" data-wow-delay="0.3s">
+                <h2>Registrar un Appointement</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-primary w-100 py-3 mt-1" type="submit">Guardar</button>
+                </form>
+            
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About the doctor and his cool staff {% endblock %}
+{% block meta_description %} This is the web site of Dr EMD the greatest who ever good {% endblock %}
+{% block content %}
+
+
+<div class="container py-5">
+    <h2 class="text-center">Service Details</h2>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h4>{{ service.service_name }}</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Name:</strong> {{ service.service_name }}</p>
+                    <p><strong>Description:</strong> {{ service.service_description }}</p>
+                    <p><strong>Price:</strong> ${{ service.service_price }}</p>
+                    <!-- Agrega más campos según el modelo Service -->
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'pricing_form' %}" class="btn btn-primary">Back to Appointments</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

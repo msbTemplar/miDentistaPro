@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About the doctor and his cool staff {% endblock %}
+{% block meta_description %} This is the web site of Dr EMD the greatest who ever good {% endblock %}
+{% block content %}
+
+
+<div class="container py-5">
+    <h2 class="text-center">Doctor Details</h2>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h4>{{ doctor.nombre }} {{ doctor.apellido }}</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Specialization:</strong> {{ doctor.especialidad }}</p>
+                    <p><strong>Phone:</strong> {{ doctor.telefono }}</p>
+                    <p><strong>Email:</strong> {{ doctor.email }}</p>
+                    
+                    <!-- Agrega más campos según el modelo Dentist -->
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'pricing_form' %}" class="btn btn-primary">Back to Appointments</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+

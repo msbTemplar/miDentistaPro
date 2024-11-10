@@ -1,0 +1,527 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}DentCare - Dental Clinic Website Template {% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="{% block meta_description %} Free HTML Templates {% endblock %}" name="description">
+    
+    <!-- Favicon -->
+    <link href="{% static 'dentist_app/img/favicon.ico' %}" rel="icon">
+    
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'dentist_app/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dentist_app/lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dentist_app/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'dentist_app/lib/twentytwenty/twentytwenty.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.0/sweetalert2.css" integrity="sha512-ISg50yWmBgHf+gNWR8QPKuEzKzltcN5QOhu2CMTRtT+VXShvkhn1fn2I21dYo0Pz4362iyMNezNXIOpOsZkcWw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'dentist_app/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'dentist_app/css/style.css' %}" rel="stylesheet">
+</head>
+<style>
+  /* Ajusta el contenedor del reloj */
+#clock-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px; /* Ancho suficiente para mostrar el reloj */
+    padding: 10px;
+    background-color: transparent; /* Asegura que no se superponga */
+}
+
+/* Ajusta el reloj analógico */
+#analog-clock {
+    position: relative;
+    width: 100px; /* Ancho del reloj, puedes ajustar según prefieras */
+    height: 100px; /* Altura del reloj */
+    border: 3px solid #ccc;
+    border-radius: 50%;
+}
+
+/* Ajusta las manecillas del reloj */
+.hand {
+    position: absolute;
+    background: #333;
+    transform-origin: bottom center;
+}
+
+#hour-hand {
+    width: 4px;
+    height: 30px;
+    top: 20px;
+    left: 48px;
+}
+
+#minute-hand {
+    width: 3px;
+    height: 40px;
+    top: 10px;
+    left: 48.5px;
+}
+
+#second-hand {
+    width: 2px;
+    height: 45px;
+    top: 5px;
+    left: 49px;
+    background: #ff4500;
+}
+
+.center {
+    width: 8px;
+    height: 8px;
+    background: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 46px;
+    left: 46px;
+}
+
+/* Ajusta los números */
+.number {
+    position: absolute;
+    font-size: 12px;
+    color: #333;
+    transform: translate(-50%, -50%);
+}
+
+.rating {
+    color: #FFD700; /* Color de las estrellas */
+}
+
+.fas.fa-star,
+.far.fa-star {
+    font-size: 16px; /* Tamaño de las estrellas */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+.custom-table-container {
+  overflow-x: auto; /* Permite desplazamiento horizontal si la tabla es demasiado ancha */
+  max-width: 100%; /* Ajusta el ancho máximo al 100% del contenedor */
+}
+
+.custom-table {
+  width: 100%; /* Ajusta el ancho de la tabla al 100% del contenedor */
+}
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; /* Ajusta este valor según sea necesario */
+}
+.text-wrap {
+  white-space: normal;
+  word-wrap: break-word;
+}      
+</style>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary m-1" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark m-1" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary m-1" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light ps-5 pe-0 d-none d-lg-block">
+        <div class="row gx-0 d-flex justify-content-center align-items-center">
+            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                <div id="clock-container">
+                    <div id="analog-clock">
+                        <div class="hand hour" id="hour-hand"></div>
+                        <div class="hand minute" id="minute-hand"></div>
+                        <div class="hand second" id="second-hand"></div>
+                        <div class="center"></div>
+                        <div class="number" style="top: 10%; left: 50%;">12</div>
+                        <div class="number" style="top: 20%; left: 75%;">1</div>
+                        <div class="number" style="top: 35%; left: 88%;">2</div>
+                        <div class="number" style="top: 50%; left: 90%;">3</div>
+                        <div class="number" style="top: 65%; left: 88%;">4</div>
+                        <div class="number" style="top: 80%; left: 75%;">5</div>
+                        <div class="number" style="top: 90%; left: 50%;">6</div>
+                        <div class="number" style="top: 80%; left: 25%;">7</div>
+                        <div class="number" style="top: 65%; left: 12%;">8</div>
+                        <div class="number" style="top: 50%; left: 10%;">9</div>
+                        <div class="number" style="top: 35%; left: 12%;">10</div>
+                        <div class="number" style="top: 20%; left: 25%;">11</div>
+                    </div>
+                    <div id="digital-clock"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row gx-0">
+            <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center">
+                    <small class="py-2"><i class="far fa-clock text-primary me-2"></i>Opening Hours: Mon - Tues : 6.00 am - 10.00 pm, Sunday Closed </small>
+                </div>
+            </div>
+            <div class="col-md-6 text-center text-lg-end">
+                <div class="position-relative d-inline-flex align-items-center bg-primary text-white top-shape px-5">
+                    <div class="me-3 pe-3 border-end py-2">
+                        <p class="m-0"><i class="fa fa-envelope-open me-2"></i>info@example.com</p>
+                    </div>
+                    <div class="py-2">
+                        <p class="m-0"><i class="fa fa-phone-alt me-2"></i>+012 345 6789</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+    
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm px-5 py-3 py-lg-0">
+        
+        <a href="{% url 'home' %}" class="navbar-brand p-0">
+            <h1 class="m-0 text-primary"><i class="fa fa-tooth me-2"></i>DentCare</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
+                <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
+                <a href="{% url 'service' %}" class="nav-item nav-link">Service</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages Pricing and other content</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="{% url 'price' %}" class="dropdown-item">Pricing Plan</a>
+                        <a href="{% url 'team' %}" class="dropdown-item">Our Dentist</a>
+                        <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
+                        <a href="{% url 'appointment_other' %}" class="dropdown-item">Appointment</a>
+                    </div>
+                </div>
+                <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
+                <!--<a href="{% url 'login' %}" class="nav-item nav-link">Login</a>-->
+                {% if user.is_authenticated %}
+                <a href="{% url 'dentist_admin' %}" class="nav-item nav-link">Dentist Admin</a>
+                    <!--<a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>-->
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-light  nav-item nav-link">Logout</button>
+                    </form>
+                    
+                {% else %}
+                    <a href="{% url 'login' %}" class="nav-item nav-link">Login</a>
+                {% endif %}
+            </div>
+            <button type="button" class="btn text-dark" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></button>
+            <a href="{% url 'appointment_other' %}" class="btn btn-primary py-2 px-4 ms-3">Appointment</a>
+        </div>
+        
+          
+    </nav>
+    <!-- Navbar End -->
+    <center>
+        {% if user.is_authenticated %}
+        <span>Hola, {{ user.username }}!</span>
+                       
+        {% else %}
+           
+        {% endif %}
+    </center>
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-primary p-3" placeholder="Type search keyword">
+                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+
+{% block content %}
+
+
+
+{% endblock %}
+
+
+
+    <!-- Newsletter Start -->
+  <!--   <div class="container-fluid position-relative pt-5 wow fadeInUp" data-wow-delay="0.1s" style="z-index: 1;">
+        <div class="container">
+            <div class="bg-primary p-5">
+                <form class="mx-auto" style="max-width: 600px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-white p-3" placeholder="Your Email">
+                        <button class="btn btn-dark px-4">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+    <!-- Newsletter End -->
+
+<!-- Newsletter Start -->
+<div class="container-fluid position-relative pt-5" style="z-index: 1;">
+    <div class="container">
+        <div class="bg-primary p-5">
+            <form action="{% url 'newsletter' %}" method="POST" class="mx-auto" style="max-width: 600px;">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="email" name="email" class="form-control border-white p-3" placeholder="Your Email" required>
+                    <button class="btn btn-dark px-4" type="submit">Sign Up</button>
+                </div>
+            </form>
+            {% if messages %}
+                <div class="mt-3 text-white">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- Newsletter End -->
+    
+    
+    
+    
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light py-5 wow fadeInUp" data-wow-delay="0.3s" style="margin-top: -75px;">
+        <div class="container pt-5">
+            <div class="row g-5 pt-4">
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="text-white mb-4">Quick Links</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
+                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
+                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
+                        <a class="text-light" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="text-white mb-4">Popular Links</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
+                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
+                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
+                        <a class="text-light" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="text-white mb-4">Get In Touch</h3>
+                    <p class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="bi bi-envelope-open text-primary me-2"></i>info@example.com</p>
+                    <p class="mb-0"><i class="bi bi-telephone text-primary me-2"></i>+012 345 67890</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="text-white mb-4">Follow Us</h3>
+                    <div class="d-flex">
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-twitter fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded" href="#"><i class="fab fa-instagram fw-normal"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid text-light py-4" style="background: #051225;">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-md-0">&copy; <a class="text-white border-bottom" href="#">Your Site Name</a>. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Designed by <a class="text-white border-bottom" href="https://htmlcodex.com">HTML Codex</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'dentist_app/lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'dentist_app/lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'dentist_app/lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'dentist_app/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'dentist_app/lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'dentist_app/lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'dentist_app/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script src="{% static 'dentist_app/lib/twentytwenty/jquery.event.move.js' %}"></script>
+    <script src="{% static 'dentist_app/lib/twentytwenty/jquery.twentytwenty.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.0/sweetalert2.min.js" integrity="sha512-iTSP2McqQzzin4TwBzVD2vGe2cKB9VxC6zouXB3J7enM/dblekPHIsJBMm0YGrZnyq1sTv/dGwo7oLY4nuRPGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Template Javascript -->
+    <script src="{% static 'dentist_app/js/main.js' %}"></script>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            
+            // Digital clock
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById("digital-clock").innerText = `${hours}:${minutes}:${seconds}`;
+            
+            // Analog clock
+            const secondDegrees = now.getSeconds() * 6;
+            const minuteDegrees = now.getMinutes() * 6;
+            const hourDegrees = (now.getHours() % 12) * 30 + now.getMinutes() * 0.5;
+            
+            document.getElementById("second-hand").style.transform = `rotate(${secondDegrees}deg)`;
+            document.getElementById("minute-hand").style.transform = `rotate(${minuteDegrees}deg)`;
+            document.getElementById("hour-hand").style.transform = `rotate(${hourDegrees}deg)`;
+          }
+          
+          // Update the clock every second
+          setInterval(updateClock, 1000);
+          updateClock();  // Initial call to set the clock immediately
+          
+    </script>
+
+    <script>
+        function verAppointmentMessage(id,descripcion,url){
+            console.log("el id es : " + id);
+            swal.fire({
+              title: "Appointment Message",
+              text: descripcion,
+              imageUrl: url,
+              imageWidth: 400,
+              imageHeight: 200,
+              imageAlt: "Custom image",
+            });
+          
+          };
+
+          function verAppointmentAddress(id,descripcion,url){
+            console.log("el id es : " + id);
+            swal.fire({
+              title: "Appointment Address",
+              text: descripcion,
+              imageUrl: url,
+              imageWidth: 400,
+              imageHeight: 200,
+              imageAlt: "Custom image",
+            });
+          
+          };
+          
+          function verContactMessage(id,descripcion,url){
+            console.log("el id es : " + id);
+            swal.fire({
+              title: "Contact Message",
+              text: descripcion,
+              imageUrl: url,
+              imageWidth: 400,
+              imageHeight: 200,
+              imageAlt: "Custom image",
+            });
+          
+          };
+          function confirmDelete(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Aquí se muestra el segundo SweetAlert para informar sobre la eliminación
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success",
+                    }).then((isConfirmed) => {
+                        // Verificar si el usuario ha confirmado el segundo SweetAlert
+                        if (isConfirmed) {
+                            console.log("el id es : " + id);
+                            // Aquí redireccionamos al usuario para eliminar el registro
+                            window.location.href = `/eliminar_appointment/${id}`; // Asegúrate de que esta URL sea correcta
+                        } else {
+                            Swal.fire("Cancelled", "Your record has not been deleted :)", "error");
+                        }
+                    });
+                }
+            });
+        };
+
+        function confirmDeleteContact(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Aquí se muestra el segundo SweetAlert para informar sobre la eliminación
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success",
+                    }).then((isConfirmed) => {
+                        // Verificar si el usuario ha confirmado el segundo SweetAlert
+                        if (isConfirmed) {
+                            console.log("el id es : " + id);
+                            // Aquí redireccionamos al usuario para eliminar el registro
+                            window.location.href = `/eliminar_contacto/${id}`; // Asegúrate de que esta URL sea correcta
+                        } else {
+                            Swal.fire("Cancelled", "Your record has not been deleted :)", "error");
+                        }
+                    });
+                }
+            });
+        };
+    </script>
+    
+</body>
+
+</html>
