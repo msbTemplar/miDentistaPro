@@ -18,6 +18,7 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DATABASE_URL = 'postgresql://postgres:dEABbCgyqqXRNQvxJZwlKeFtzcCjYFSg@postgres.railway.internal:5432/railway'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -89,8 +90,9 @@ DATABASES = {
 """
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')  # Railway configura automáticamente DATABASE_URL
-    )
+        default=DATABASE_URL,  # Railway configura automáticamente DATABASE_URL
+        conn_max_age=1800
+    ),
 }
 
 # Password validation
