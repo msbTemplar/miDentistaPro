@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About the doctor and his cool staff {% endblock %}
+{% block meta_description %} This is the web site of Dr EMD the greatest who ever good {% endblock %}
+{% block content %}
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Lista de Dentists Images</h2>
+            <div class="row">
+                {% for dentist_image in la_lista_des_dentists_images %}
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-light text-dark">
+                        <img src="{{ dentist_image.dentist_image_image.url }}" class="card-img-top" alt="{{ dentist_image.dentist_image_name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ dentist_image.dentist_image_name }}</h5>
+                            <p class="card-text">{{ dentist_image.dentist_image_description }}</p>
+                            {% if user.is_superuser %}
+                            <a href="{% url 'actualizar_dentists_image' dentist_image.id %}" class="btn btn-primary">Actualizar {{dentist_image.id}}</a>
+                            
+                            {% endif %}
+                            {% if user.is_superuser %}
+                            
+                            <a class="btn btn-danger" href="#" onclick="confirmDeleteDentistImage('{{ dentist_image.id }}')">Eliminer {{dentist_image.id}}</a>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer text-muted">
+                            2 days ago
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center">No hay Dentists images disponibles.</p>
+                {% endfor %}
+            </div>
+        </div>
+            
+        
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About the doctor and his cool staff {% endblock %}
+{% block meta_description %} This is the web site of Dr EMD the greatest who ever good {% endblock %}
+{% block content %}
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Lista de Servicios Images</h2>
+            <div class="row">
+                {% for service_image in la_lista_des_services_images %}
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-light text-dark">
+                        <img src="{{ service_image.service_image_image.url }}" class="card-img-top" alt="{{ service_image.service_image_name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ service_image.service_image_name.service_name }}</h5>
+                            <p class="card-text">{{ service_image.service_image_description }}</p>
+                            {% if user.is_superuser %}
+                            <a href="{% url 'actualizar_services_image' service_image.id %}" class="btn btn-primary">Actualizar {{service_image.id}}</a>
+                            
+                            {% endif %}
+                            {% if user.is_superuser %}
+                            
+                            <a class="btn btn-danger" href="#" onclick="confirmDeleteServiceImage('{{ service_image.id }}')">Eliminer {{service_image.id}}</a>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer text-muted">
+                            2 days ago
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center">No hay servicios images disponibles.</p>
+                {% endfor %}
+            </div>
+        </div>
+            
+        
+    </div>
+</div>
+{% endblock %}

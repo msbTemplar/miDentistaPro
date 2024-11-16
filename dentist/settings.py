@@ -31,8 +31,9 @@ SECRET_KEY = 'django-insecure-_)u51$yc_*w_zbudgj^s_#+igqde-k5vf(@pqkop!d%u*k+_gc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-0c64.up.railway.app']
+#para desplegar en railway hay que descomentar esto de abajo y para local hay que comentarlo
 
+CSRF_TRUSTED_ORIGINS = ['https://web-production-0c64.up.railway.app']
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True

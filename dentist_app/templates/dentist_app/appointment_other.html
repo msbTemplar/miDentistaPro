@@ -75,17 +75,24 @@
                                 <div class="col-12 col-sm-6">
                                     <select class="form-select bg-light border-0" style="height: 55px;" name="services">
                                         <option selected>Select A Service</option>
-                                        <option value="1">Service 1</option>
+                                        <!-- <option value="1">Service 1</option>
                                         <option value="2">Service 2</option>
-                                        <option value="3">Service 3</option>
+                                        <option value="3">Service 3</option> -->
+                                        
+                                        {% for service in services %}
+                                            <option value="{{ service.id }}">{{ service.service_name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <select class="form-select bg-light border-0" style="height: 55px;" name="doctors">
                                         <option selected>Select Doctor</option>
-                                        <option value="1">Doctor 1</option>
+                                        <!-- <option value="1">Doctor 1</option>
                                         <option value="2">Doctor 2</option>
-                                        <option value="3">Doctor 3</option>
+                                        <option value="3">Doctor 3</option> -->
+                                        {% for doctor in doctors %}
+                                            <option value="{{ doctor.id }}">{{ doctor.nombre }} {{ doctor.apellido }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">

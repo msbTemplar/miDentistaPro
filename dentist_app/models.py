@@ -24,6 +24,22 @@ class Service(models.Model):
     def __str__(self):
         return f"{self.service_name} {self.service_price}"
 
+class ServiceImage(models.Model):
+    #service_image_name = models.CharField(max_length=100, verbose_name="Nombre del Servicio")
+    service_image_name = models.ForeignKey(Service, blank=True, null=True, on_delete=models.CASCADE)
+    service_image_description = models.TextField(verbose_name="Descripción")
+    service_image_image = models.ImageField(upload_to='services/', verbose_name="Imagen")
+    
+    def __str__(self):
+        return self.service_image_namename
+    
+class DentistImage(models.Model):
+    dentist_image_name = models.ForeignKey(Dentist, blank=True, null=True, on_delete=models.CASCADE)
+    dentist_image_description = models.TextField(verbose_name="Descripción")
+    dentist_image_image = models.ImageField(upload_to='dentists/', verbose_name="Imagen")
+    
+    def __str__(self):
+        return self.dentist_image_name
     
 class Appointment(models.Model):
     #appointment_service = models.CharField('Select Service', max_length=100)

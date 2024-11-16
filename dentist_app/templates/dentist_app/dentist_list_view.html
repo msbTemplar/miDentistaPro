@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About the doctor and his cool staff {% endblock %}
+{% block meta_description %} This is the web site of Dr EMD the greatest who ever good {% endblock %}
+{% block content %}
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-xl-12 col-lg-12 wow slideInUp" data-wow-delay="0.3s">
+                <h2>All the dentists</h2>
+                <table class="table table-striped table-hover table-bordered border-primary shadow rounded custom-table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="text-center">Nombre Dentist </th>
+                        <th scope="col" class="text-center">Apellido Dentist</th>
+                        <th scope="col" class="text-center">Especialidad</th>
+                        <th scope="col" class="text-center">Email</th>
+                        <th scope="col" class="text-center">Telefono</th>
+                       
+                        {% if user.is_superuser %}
+                        <th scope="col" class="text-center">Actualiser</th>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                        <th scope="col" class="text-center">{% if user.is_authenticated %}Eliminer{% endif %}</th>
+                        {% endif %}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for dentist in la_lista_des_dentistas %}
+                      <tr>
+                        <!--<th class="text-wrap" style="max-width: 150px;" scope="row">{{appointment.appointment_service}}</th>
+                        <th class="text-wrap" style="max-width: 150px;" scope="row">{{appointment.appointment_doctor}}</th>
+                      -->
+                       
+                        <th class="text-wrap" style="max-width: 150px;" scope="row">{{dentist.nombre}}</th>
+                        <th class="text-wrap" style="max-width: 150px;" scope="row">{{dentist.apellido}}</th>
+                        <th class="text-wrap" style="max-width: 150px;" scope="row">{{dentist.especialidad}}</th>
+                        <th class="text-wrap" style="max-width: 150px;" scope="row">{{dentist.email}}</th>
+                        <th class="text-wrap" style="max-width: 150px;" scope="row">{{dentist.telefono}}</th>
+                        <!-- <td>
+                          <a class="btn btn-warning" href="#" onclick="verServiceDescription('{{ service.id }}','{{service.service_description}}','')">Ver Service Description 
+                            {{ service.id }}</a>
+                        </td> -->
+                        
+                        {% if user.is_superuser %}
+                        <td style="text-align: center;">
+                          
+                          <a class="btn btn-info" href="{% url 'actualizar_dentist' dentist.id %}">Actualiser {{dentist.id}}</a>
+                          
+                        </td>
+                        {% endif %}
+                       
+                        {% if user.is_superuser %}
+                        <td style="text-align: center;">
+                          
+                          <a class="btn btn-danger" href="#" onclick="confirmDeleteDentist('{{ dentist.id }}')">Eliminer {{dentist.id}}</a>
+                          
+                      </td>
+                      {% endif %}
+                      </tr>
+                      {% endfor %}
+                      
+                    </tbody>
+                  </table> 
+            
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

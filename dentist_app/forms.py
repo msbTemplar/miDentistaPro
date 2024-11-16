@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dentist,Appointment,Service,ContactMessage,Newsletter
+from .models import Dentist,Appointment,Service,ContactMessage,Newsletter,ServiceImage,DentistImage
 
 class DentistForm(forms.ModelForm):
     class Meta:
@@ -134,8 +134,28 @@ class ServiceForm(forms.ModelForm):
             }),
             
         }
-        
 
+class ServiceImageForm(forms.ModelForm):
+    class Meta:
+        model = ServiceImage
+        fields = ['service_image_name', 'service_image_description', 'service_image_image']
+        widgets = {
+            'service_image_name': forms.Select (attrs={'class': 'form-control border-0 bg-light px-4', 'placeholder': 'Ingrese el nombre del servicio' , 'style': 'height: 55px;'}),
+            'service_image_description': forms.Textarea(attrs={'class': 'form-control border-0 bg-light px-4', 'placeholder': 'Ingrese la descripción' , 'style': 'height: 55px;'}),
+            'service_image_image': forms.ClearableFileInput(attrs={'class': 'form-control border-0 bg-light px-4' , 'style': 'height: 55px;'}),
+        }
+
+class DentistImageForm(forms.ModelForm):
+    class Meta:
+        model = DentistImage
+        fields = ['dentist_image_name', 'dentist_image_description', 'dentist_image_image']
+        widgets = {
+            'dentist_image_name': forms.Select (attrs={'class': 'form-control border-0 bg-light px-4', 'placeholder': 'Seleccione el nombre del dentista' , 'style': 'height: 55px;'}),
+            'dentist_image_description': forms.Textarea(attrs={'class': 'form-control border-0 bg-light px-4', 'placeholder': 'Ingrese la descripción' , 'style': 'height: 55px;'}),
+            'dentist_image_image': forms.ClearableFileInput(attrs={'class': 'form-control border-0 bg-light px-4' , 'style': 'height: 55px;'}),
+        }
+        
+        
 class ContactMessageForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
