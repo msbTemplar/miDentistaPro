@@ -7,6 +7,8 @@ from .models import Appointment,Dentist,Service,ContactMessage,ServiceImage,Dent
 from django.contrib import messages
 from django.http import JsonResponse
 
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
 
 def all_the_options_view(request):
     #la_lista_des_services_images = ServiceImage.objects.all()  # Recupera todos los servicios

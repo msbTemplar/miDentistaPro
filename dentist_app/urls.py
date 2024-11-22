@@ -63,5 +63,7 @@ urlpatterns = [
     path('eliminar_dentists_image/<id_dentist_image>', views.eliminar_dentists_image, name='eliminar_dentists_image'),
     path('set_cookie_consent/', views.set_cookie_consent, name='set_cookie_consent'),
     path('all_the_options_view/', views.all_the_options_view, name='all_the_options_view'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+
 
 ]
