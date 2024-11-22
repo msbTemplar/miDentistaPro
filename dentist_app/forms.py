@@ -65,7 +65,8 @@ class AppointmentForm(forms.ModelForm):
             'appointment_phone': forms.TextInput(attrs={
                 'class': 'form-control border-0 bg-light px-4',
                 'placeholder': 'Your Phone',
-                'style': 'height: 55px;'
+                'style': 'height: 55px;',
+                'maxlength': '15'
             }),
             'appointment_address': forms.TextInput(attrs={
                 'class': 'form-control border-0 bg-light px-4',

@@ -442,7 +442,7 @@ def appointment(request):
         from_email = your_email
 
         # Lista de correos a los que se enviará el mensaje
-        to_email = ['msb.tesla@gmail.com', 'msb.coin@gmail.com', 'msb.duck@gmail.com', 'msebti2@gmail.com']
+        to_email = [your_email,'msb.tesla@gmail.com', 'msb.coin@gmail.com', 'msb.duck@gmail.com', 'msebti2@gmail.com']
 
         # Enviar el correo
         send_mail(
@@ -605,7 +605,7 @@ def appointment_other(request):
         from_email = your_email
 
         # Lista de correos a los que se enviará el mensaje
-        to_email = ['msb.tesla@gmail.com', 'msb.coin@gmail.com', 'msb.duck@gmail.com', 'msebti2@gmail.com']
+        to_email = [your_email,'msb.tesla@gmail.com', 'msb.coin@gmail.com', 'msb.duck@gmail.com', 'msebti2@gmail.com']
 
         # Enviar el correo
         send_mail(
