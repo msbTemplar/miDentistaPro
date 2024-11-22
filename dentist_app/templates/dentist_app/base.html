@@ -127,7 +127,15 @@
 .text-wrap {
   white-space: normal;
   word-wrap: break-word;
-}      
+}   
+
+#cookie-banner {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+#accept-cookies {
+    margin-left: 10px;
+}
 </style>
 
 <body>
@@ -222,6 +230,7 @@
                 <!--<a href="{% url 'login' %}" class="nav-item nav-link">Login</a>-->
                 {% if user.is_authenticated %}
                 <a href="{% url 'dentist_admin' %}" class="nav-item nav-link">Dentist Admin</a>
+                <a href="{%  url 'all_the_options_view' %}" class="nav-item nav-link">All the options</a>
                     <!--<a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>-->
                     <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
                         {% csrf_token %}
@@ -231,6 +240,7 @@
                 {% else %}
                     <a href="{% url 'login' %}" class="nav-item nav-link">Login</a>
                 {% endif %}
+                
             </div>
             <button type="button" class="btn text-dark" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></button>
             <a href="{% url 'appointment_other' %}" class="btn btn-primary py-2 px-4 ms-3">Appointment</a>
@@ -377,7 +387,14 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
+    
 
+    {% if not request.COOKIES.cookie_consent %}
+    <div id="cookie-banner" style="position: fixed; bottom: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px;">
+        Este sitio web utiliza cookies para mejorar la experiencia del usuario.
+        <button id="accept-cookies" style="background: #4CAF50; color: white; padding: 5px 10px; border: none; cursor: pointer;">Aceptar</button>
+    </div>
+    {% endif %}
     
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -656,6 +673,18 @@
         };
     
 
+    </script>
+
+    <script>
+        document.getElementById('accept-cookies').addEventListener('click', function() {
+            fetch("{% url 'set_cookie_consent' %}", {method: 'GET'})
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok') {
+                        document.getElementById('cookie-banner').style.display = 'none';
+                    }
+                });
+        });
     </script>
     
 </body>

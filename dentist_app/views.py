@@ -5,6 +5,17 @@ from django.contrib.auth import logout
 from .forms import DentistForm,AppointmentForm,ServiceForm,ContactMessageForm,NewsletterForm,ServiceImageForm,DentistImageForm
 from .models import Appointment,Dentist,Service,ContactMessage,ServiceImage,DentistImage
 from django.contrib import messages
+from django.http import JsonResponse
+
+
+def all_the_options_view(request):
+    #la_lista_des_services_images = ServiceImage.objects.all()  # Recupera todos los servicios
+    return render(request, 'dentist_app/all_the_options_view.html', {})
+
+def set_cookie_consent(request):
+    response = JsonResponse({'status': 'ok'})
+    response.set_cookie('cookie_consent', 'true', max_age=365*24*60*60)  # 1 año
+    return response
 
 
 def newsletter(request):
